@@ -8,6 +8,7 @@
 - M3 database commands - get/create/edit/query/list/move
 - M4 batch create - JSON/YAML input, rate-limit, --resume
 - M5 documentation, changelog, and GitHub Actions CI
+- Auto-load .env with dotenv
 
 ### 📚 Documentation
 

@@ -27,16 +27,15 @@ export class NotionClient {
       return await fn();
     } catch (err: unknown) {
       if (this.isNotionError(err)) {
-        const body = err.body as Record<string, unknown> | undefined;
         if (err.status === 429) {
-          const retryAfter = Number(body?.retryAfter) || 5;
+          const retryAfter = Number(
+            (err as Record<string, unknown>).retryAfter ?? 5,
+          );
           throw new RateLimitError(retryAfter);
         }
-        throw new NotionError(
-          (body?.message as string) || err.message,
-          String(body?.code ?? "UNKNOWN"),
-          err.status,
-        );
+        const code =
+          (err as Record<string, unknown>).code as string | undefined;
+        throw new NotionError(err.message, code ?? "UNKNOWN", err.status);
       }
       throw err;
     }
@@ -125,7 +124,7 @@ export class NotionClient {
 
   private isNotionError(
     err: unknown,
-  ): err is { status: number; message: string; body?: unknown } {
+  ): err is { status: number; message: string } {
     return (
       typeof err === "object" &&
       err !== null &&
