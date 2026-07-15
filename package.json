@@ -9,7 +9,8 @@
     "format": "prettier --write '**/*.{ts,json,yaml,md}'",
     "format:check": "prettier --check '**/*.{ts,json,yaml,md}'",
     "test": "pnpm -r test",
-    "typecheck": "pnpm -r typecheck"
+    "typecheck": "pnpm -r typecheck",
+    "prepare": "husky"
   },
   "engines": {
     "node": ">=18"
@@ -18,6 +19,7 @@
     "@eslint/js": "^10.0.1",
     "eslint": "^10.7.0",
     "eslint-config-prettier": "^10.1.8",
+    "husky": "^9.1.7",
     "prettier": "^3.9.5",
     "typescript-eslint": "^8.64.0"
   }

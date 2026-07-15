@@ -1,0 +1,4 @@
+npx --yes git-cliff --output CHANGELOG.md
+git add CHANGELOG.md
+
+pnpm test

@@ -12,3 +12,7 @@
 ### 📚 Documentation
 
 - CHANGELOG.md generated from git log, add MIT LICENSE
+
+### ⚙️ Miscellaneous Tasks
+
+- Regenerate CHANGELOG.md with git-cliff
