@@ -1,7 +1,9 @@
 #!/usr/bin/env node
 
 import { Command } from "commander";
-import { ConfigManager } from "@notion-tools/core";
+import { ConfigManager, NotionClient } from "@notion-tools/core";
+import { setClient } from "./context.js";
+import { pageCommand } from "./commands/page.js";
 
 const program = new Command();
 
@@ -14,8 +16,10 @@ program
   .hook("preAction", (thisCommand) => {
     const opts = thisCommand.optsWithGlobals();
     try {
-      const config = new ConfigManager();
-      config.load(opts.token);
+      const cm = new ConfigManager();
+      const config = cm.load(opts.token);
+      const client = new NotionClient(config);
+      setClient(client);
     } catch (err) {
       if (err instanceof Error) {
         console.error(err.message);
@@ -23,5 +27,7 @@ program
       }
     }
   });
+
+program.addCommand(pageCommand);
 
 program.parse(process.argv);
