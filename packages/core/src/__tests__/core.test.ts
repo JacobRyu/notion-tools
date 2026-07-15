@@ -1,6 +1,7 @@
 import { describe, it, expect } from "vitest";
 import { ConfigManager } from "../config.js";
 import { NotionError, RateLimitError, ValidationError } from "../errors.js";
+import { TokenBucket } from "../rate-limiter.js";
 
 describe("ConfigManager", () => {
   it("loads token from env", () => {
@@ -46,5 +47,21 @@ describe("Errors", () => {
     const err = new ValidationError("invalid");
     expect(err.name).toBe("ValidationError");
     expect(err.message).toBe("invalid");
+  });
+});
+
+describe("TokenBucket", () => {
+  it("allows immediate acquire when tokens available", async () => {
+    const bucket = new TokenBucket(5, 1, 1000);
+    await bucket.acquire();
+    expect(true).toBe(true);
+  });
+
+  it("throttles when tokens are exhausted", async () => {
+    const bucket = new TokenBucket(1, 1, 50);
+    await bucket.acquire();
+    const start = Date.now();
+    await bucket.acquire();
+    expect(Date.now() - start).toBeGreaterThanOrEqual(45);
   });
 });

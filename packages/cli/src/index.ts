@@ -5,6 +5,7 @@ import { ConfigManager, NotionClient } from "@notion-tools/core";
 import { setClient } from "./context.js";
 import { pageCommand } from "./commands/page.js";
 import { dbCommand } from "./commands/db.js";
+import { batchCommand } from "./commands/batch.js";
 
 const program = new Command();
 
@@ -31,4 +32,5 @@ program
 
 program.addCommand(pageCommand);
 program.addCommand(dbCommand);
+program.addCommand(batchCommand);
 program.parse(process.argv);
