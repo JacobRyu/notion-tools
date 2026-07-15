@@ -16,6 +16,7 @@
     "@notion-tools/core": "workspace:*",
     "chalk": "^5.3.0",
     "commander": "^12.1.0",
+    "dotenv": "^17.4.2",
     "js-yaml": "^5.2.1"
   },
   "devDependencies": {

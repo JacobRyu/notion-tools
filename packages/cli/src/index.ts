@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 
+import "dotenv/config";
 import { Command } from "commander";
 import { ConfigManager, NotionClient } from "@notion-tools/core";
 import { setClient } from "./context.js";

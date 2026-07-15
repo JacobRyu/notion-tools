@@ -16,3 +16,4 @@
 ### ⚙️ Miscellaneous Tasks
 
 - Regenerate CHANGELOG.md with git-cliff
+- Add husky pre-commit hook for git-cliff changelog auto-generation
