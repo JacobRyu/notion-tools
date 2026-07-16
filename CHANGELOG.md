@@ -10,6 +10,10 @@
 - M5 documentation, changelog, and GitHub Actions CI
 - Auto-load .env with dotenv
 
+### 🐛 Bug Fixes
+
+- Correct Notion API error code extraction
+
 ### 📚 Documentation
 
 - CHANGELOG.md generated from git log, add MIT LICENSE

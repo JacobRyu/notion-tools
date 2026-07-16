@@ -92,13 +92,27 @@ pageCommand
   .description("move page to a new parent")
   .action(async (id, newParentId, opts) => {
     const client = getClient();
-    const page = await client.updatePage({
+    const page = await client.getPage(id);
+    const allProps = (page as Record<string, unknown>)
+      .properties as Record<string, unknown>;
+    const writableTypes = new Set([
+      "title", "rich_text", "number", "select", "multi_select",
+      "status", "date", "checkbox", "url", "email", "phone_number",
+      "people", "files", "relation",
+    ]);
+    const properties: Record<string, unknown> = {};
+    for (const [key, val] of Object.entries(allProps)) {
+      const prop = val as { type: string };
+      if (writableTypes.has(prop.type)) {
+        properties[key] = val;
+      }
+    }
+    const moved = await client.updatePage({
       page_id: id,
-      parent: { page_id: newParentId } as never,
-      properties: {},
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    } as any);
-    output(page, opts);
+      parent: { page_id: newParentId },
+      properties,
+    } as never);
+    output(moved, opts);
   });
 
 pageCommand
